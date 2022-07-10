@@ -98,7 +98,7 @@ function fold(el) {
 function load_theme() {
     let theme_name = window.localStorage.getItem('theme_name');
     if (!theme_name){
-        window.localStorage.setItem('theme_name', 'obs-light');
+        window.localStorage.setItem('theme_name', 'light');
     }
     set_theme(window.localStorage.getItem('theme_name'));
     document.getElementById('antiflash').style.display = 'none'; 
@@ -111,7 +111,9 @@ function set_theme(theme_name){
     window.localStorage.setItem('theme_name', theme_name);
 
     // update select element
-    document.getElementById('theme').value = theme_name;
+    if (document.getElementById('theme')) {
+        document.getElementById('theme').value = theme_name;
+    }
 
     let theme_class = 'theme-'+theme_name;
 

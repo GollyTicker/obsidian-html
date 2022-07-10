@@ -97,6 +97,8 @@ function LoadPage() {
         }
         OpenPath(1);
     }
+
+    set_theme("light");
 }
 
 function LoadTableOfContents(container_div)

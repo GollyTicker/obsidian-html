@@ -17,6 +17,8 @@ from . import src
 
 from .PathFinder import get_html_url_prefix
  
+LIST_CHARACTERS = ["-","*"]
+
 class DuplicateFileNameInRoot(Exception):
     pass
 class MalformedTags(Exception):

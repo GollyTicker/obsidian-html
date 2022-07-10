@@ -168,6 +168,7 @@ blockquote p {
     flex-direction: row;
     align-items: stretch;
     width: 100vw;
+    justify-content: center;
 }
 
 .current_page_link a:hover,
@@ -181,7 +182,6 @@ blockquote p {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: calc(100vw - 21rem);
     margin-bottom: -0.5rem;
 }
 .navbar-button {
@@ -357,8 +357,8 @@ a.navbar-link:hover
 .icon-tray div
 {
     border: 3px solid var(--bg-accent);
-    width: calc(1.6rem - 6px);
-    height: calc(1.6rem - 6px);
+    width: calc(2.5rem - 6px);
+    height: calc(2.5rem - 6px);
     border: 3px solid #f0f0f0;
     margin-right: 0.2rem;
     float: right;
@@ -381,7 +381,7 @@ a.navbar-link:hover
     text-decoration: none;
 }
 h3 {
-    font-size: 13pt;
+    font-size: 26pt;
     font-weight: 500;
     border-bottom: 1px dashed var(--bg-accent3);
     padding: 2px;
@@ -397,7 +397,7 @@ h3 + p {
 
 @media (max-width: 602px) {
     .header {
-        padding-bottom: 0.3rem;
+        display: none;
     }
     .navbar {
         margin: auto
@@ -425,14 +425,14 @@ h1, h2, h3, h4, h5 {
     margin: 1rem;
     margin-left: 2rem;
     margin-top:2rem;
-    margin-bottom:2rem;
+    margin-bottom:0.5rem;
     background-color: var(--header-bg);
     scroll-margin-top: 20rem;
     overflow-anchor: none;
 }
 
 h1 {
-    font-size: 28px;
+    font-size: 56px;
     line-height: 34px;
     margin-top: 0px;
     margin-bottom: 16px;
@@ -445,7 +445,7 @@ h1:not(:first-of-type) {
 }
 
 h2 {
-    font-size: 14pt;
+    font-size: 28pt;
     border-bottom: 1px dotted #777070;
     font-weight: 600;
     padding-bottom: 0.2rem;
@@ -705,7 +705,7 @@ span.tag {
 
 .header {
     margin: 1rem;
-    margin-bottom:2rem;
+    margin-bottom:0.5rem;
     background-color: var(--header-bg);
     scroll-margin-top: 20rem;
     overflow-anchor: none;

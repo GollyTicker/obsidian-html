@@ -4,8 +4,10 @@ from pathlib import Path    #
 import frontmatter          # remove yaml frontmatter from md files
 import urllib.parse         # convert link characters like %
 import warnings
-from .lib import DuplicateFileNameInRoot, GetObsidianFilePath, ConvertTitleToMarkdownId, MalformedTags, OpenIncludedFile
+from .lib import LIST_CHARACTERS, DuplicateFileNameInRoot, GetObsidianFilePath, ConvertTitleToMarkdownId, MalformedTags, OpenIncludedFile
 from .HeaderTree import PrintHeaderTree, ConvertMarkdownToHeaderTree
+
+EXTERNAL_LINK_IDENTIFIER = "<small> 🔗</small>"
 
 class MarkdownPage:
     page = None             # Pure markdown code read from src file
@@ -139,7 +141,7 @@ class MarkdownPage:
             clean_line = line.strip()
             if len(clean_line) == 0:
                 current_is_list_line = False
-            elif clean_line[0] == '-':
+            elif clean_line[0] in LIST_CHARACTERS:
                 current_is_list_line = True
             if current_is_list_line and (prev_is_list_line == False):
                 buffer += '\n'
@@ -308,6 +310,12 @@ class MarkdownPage:
             safe_link = re.escape(l)
             self.page = re.sub(f"(?<![\[\(])({safe_link})", new_md_link, self.page)
 
+        # -- [SWNT-1] Convert [bla](proto://uri_part) to [bla](proto://uri_part){EXTERNAL_LINK_IDENTIFIER}
+        for md_link in re.findall("(\[.*\]\(.*\://.*\))", self.page):
+            new_md_link = f"{md_link}{EXTERNAL_LINK_IDENTIFIER}"
+            safe_link = re.escape(md_link)
+            self.page = re.sub(safe_link, new_md_link, self.page)
+
         # -- [9] Remove inline tags, like #ThisIsATag
         # Inline tags are # connected to text (so no whitespace nor another #)
         for l in re.findall("(?<!\S)#[^\s#`]+", self.page):
@@ -343,10 +351,14 @@ class MarkdownPage:
             included_page.ConvertObsidianPageToMarkdownPage(origin=self.fo, include_depth=include_depth + 1, includer_page_depth=page_folder_depth)
 
             # Get subsection of code if header is present
-            if header != '':
+            if header.startswith("^"):
+                print("WARNING: Embedded ^block-links are not supported! Link: " +
+                str(included_page.rel_src_path) + "#" + header + " in page " + str(self.rel_src_path))
+            elif header != '':
                 header_id = ConvertTitleToMarkdownId(header)
                 included_page.StripCodeSections()
                 header_dict, root_element = ConvertMarkdownToHeaderTree(included_page.page)
+
                 included_page.page = PrintHeaderTree(header_dict[header_id])
                 included_page.RestoreCodeSections()
             

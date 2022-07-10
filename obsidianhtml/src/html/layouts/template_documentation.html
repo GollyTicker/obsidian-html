@@ -1,63 +1,64 @@
 <!DOCTYPE html>
 
 <html lang="en">
+  <head>
+    <!-- Page information -->
+    <meta charset="UTF-8" />
+    <meta name="node_id" content="{node_id}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/favicon.ico" />
 
-        <head>
-                <!-- Page information -->
-                <meta charset="UTF-8" />
-                <meta name="node_id" content="{node_id}">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <link rel="shortcut icon" href="/favicon.ico" />
+    <!-- Set title -->
+    <title>{title}</title>
 
-                <!-- Set title -->
-                <title>{title}</title>
+    <!-- Includes -->
+    {dynamic_includes}
 
-                <!-- Includes -->
-                {dynamic_includes}
+    <!-- Onload tweaks -->
+    <script>
+      const CURRENT_NODE = "{pinnedNode}";
+      const HTML_URL_PREFIX = "{html_url_prefix}";
+    </script>
+  </head>
 
-                <!-- Onload tweaks -->
-                <script>
-                        const CURRENT_NODE = '{pinnedNode}';
-                        const HTML_URL_PREFIX = '{html_url_prefix}';
-                </script>
-        </head>
+  <body onload="LoadPage();" class="theme-light">
+    <div id="antiflash"></div>
+    {search_html}
 
-<body onload="LoadPage();" class="theme-obs-light">
-        <div id="antiflash"></div>
-        {search_html}
-
-        <div id="page_holder" class="flex_col">
-                <div id="header" class="header">
-                        <div id="header_flex" class="flex_row">
-                                <a href="{html_url_prefix}/index.html" id="homelink" title="Clear screen and go to homepage">{title}</a>
-                                <div class="navbar-button" onclick="toggle_menu()">
-                                        ≡
-                                </div>
-                                <div id="navbar" class="navbar">
-                                {{navbar_links}}
-                                        <div class="icon-tray">
-                                                {rss_button}
-                                                {tags_page_button}
-                                                {dirtree_button}
-                                                {graph_button}
-                                                {search_button}
-                                                {theme_button}
-                                        </div>
-                                </div>
-                        </div>
-                        {theme_popup}
-                </div>
-                <div class="flex_row">
-                        <div id="left_pane"></div>
-                        <div class="container">
-                                {content}
-                                <!-- end content -->
-                        </div>
-                        <div id="right_pane"></div>
-                </div>
+    <div id="page_holder" class="flex_col">
+      <div id="header" class="header">
+        <div id="header_flex" class="flex_row">
+          <div>
+            <a
+              href="{html_url_prefix}/index.html"
+              id="homelink"
+              title="Clear screen and go to homepage"
+              >{title}</a
+            >
+            <div class="navbar-button" onclick="toggle_menu()">≡</div>
+            <div id="navbar" class="navbar">
+              {{navbar_links}}
+              <div class="icon-tray">
+                {tags_page_button} {dirtree_button} {graph_button}
+                {search_button}
+                <!-- {theme_button-REMOVED} -->
+              </div>
+            </div>
+          </div>
+          <div><h1>TODO Title</h1></div>
         </div>
+        <!-- {theme_popup} -->
+      </div>
+      <div class="flex_row">
+        <div id="left_pane"></div>
+        <div class="container">
+          {content}
+          <!-- end content -->
+        </div>
+        <div id="right_pane"></div>
+      </div>
+    </div>
 
-{footer_js_inclusions}
-
-</body>
+    {footer_js_inclusions}
+  </body>
 </html>
